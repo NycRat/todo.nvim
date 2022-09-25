@@ -24,6 +24,28 @@ local function get_file_extension(file_path)
   end
 end
 
+local is_in_todo_path = function(path)
+  local data_path_dirs = data_path:gmatch('[^/%s]+')
+  local current_file_dirs = path:gmatch('[^/%s]+')
+  while true do
+    local data_dir = data_path_dirs()
+    local prev_dir = current_file_dirs()
+    if (data_dir == nil) then
+      break
+    end
+    if (prev_dir == nil) then
+      break
+    end
+
+    if (prev_dir ~= data_dir) then
+      return false
+    end
+  end
+  return true
+end
+
+M.previous_file = ".";
+
 M.options = {
   default_file_extension = ".txt"
 }
@@ -34,6 +56,13 @@ M.setup = function(user_opts)
       M.options.default_file_extension = user_opts.default_file_extension
     end
   end
+end
+
+M.push_previous_file = function(current_path)
+  if (is_in_todo_path(current_path)) then
+    return
+  end
+  M.previous_file = current_path
 end
 
 M.open = function(todo_file)
@@ -48,8 +77,18 @@ M.open = function(todo_file)
 
     todo_file = todo_file
   end
+
   vim.cmd("e "..todo_path..todo_file)
   print("OPENED TODO FILE: "..todo_file)
+end
+
+M.close = function(current_path)
+  if (is_in_todo_path(current_path)) then
+    if (M.previous_file == "") then
+      M.previous_file = ".";
+    end
+    vim.cmd("e "..M.previous_file)
+  end
 end
 
 return M

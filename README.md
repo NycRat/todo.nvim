@@ -11,6 +11,10 @@ Opens ```todo_path/todo.txt``` if ```<file>``` not specified
 Opens file with ```default_file_extension``` if extension not specified  
 Example ```:TodoOpen school``` opens school.txt
 
+### :TodoClose
+
+Closes the current todo file, and opens the last visited non-todo file
+
 ## Configuration
 
 ### Default Config
