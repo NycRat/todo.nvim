@@ -1,0 +1,17 @@
+================================================================================
+                                                                  *todo.nvim*
+    This plugin opens global todo files from any directory.
+
+:TodoOpen [<file>] 						  *:TodoOpen*
+    Opens/Creates todo file at todo_path/<file>.
+    Opens todo_path/todo.txt if <file> not specified
+    Opens file with default_file_extension if extension not specified
+
+vim:tw=78:ts=8:ft=help:noet:nospell
+
+						  *todo-default-configuration*
+>
+    require("todo").setup({
+      default_file_extension = ".txt"
+    })
+<
