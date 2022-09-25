@@ -4,8 +4,6 @@ local data_path = vim.fn.stdpath("data")
 local todo_path = data_path.."/todo.nvim/"
 local default_todo_file = todo_path.."todo.txt"
 
-local default_file_extension = ".txt"
-
 local file = io.open(default_todo_file, "a")
 if (file == nil) then
   os.execute("mkdir "..todo_path)
@@ -26,14 +24,26 @@ local function get_file_extension(file_path)
   end
 end
 
-M.open = function (todo_file)
+M.options = {
+  default_file_extension = ".txt"
+}
+
+M.setup = function(user_opts)
+  if user_opts ~= nil then
+    if user_opts.default_file_extension ~= nil then
+      M.options.default_file_extension = user_opts.default_file_extension
+    end
+  end
+end
+
+M.open = function(todo_file)
   if (todo_file == nil or todo_file == "") then
     vim.cmd("e "..default_todo_file)
   else
     local file_extension = get_file_extension(todo_file)
 
     if file_extension == nil then
-      todo_file = todo_file..default_file_extension
+      todo_file = todo_file..M.options.default_file_extension
     end
 
     vim.cmd("e "..todo_path..todo_file)
