@@ -49,7 +49,7 @@ M.open = function(todo_file)
     todo_file = todo_file
   end
   vim.cmd("e "..todo_path..todo_file)
-  print("OPENED TODO FILE:"..todo_file)
+  print("OPENED TODO FILE: "..todo_file)
 end
 
 return M
