@@ -10,6 +10,17 @@
     Opens file with default_file_extension if extension not specified
 
 
+:TodoFileList                                                  *:TodoFileList*
+
+    Opens file containing a list of the todo files.
+    The list can be edited to add new files, or reorder them.
+
+
+:TodoOpenIndex [<index>]                                      *:TodoOpenIndex*
+
+    Opens todo file at the <index> of todo file list.
+
+
 :TodoClose                                                        *:TodoClose*
 
     Closes the current todo file, and opens the last visited non-todo file
